@@ -36,8 +36,20 @@ class Sc1Controller extends Controller
     // Tambah data
     public function store(Request $request)
     {
-        $data = $request->except('No'); // jangan isi primary key manual
-        Sc1::create($data);
+        $rules = [];
+        foreach (Sc1::getAllColumns() as $field => $type) {
+            if ($field !== 'No') {
+                if (str_contains($type, 'varchar') || str_contains($type, 'date')) {
+                    $rules[$field] = 'nullable|string'; // bisa kamu ganti 'required|string'
+                } elseif (str_contains($type, 'int') || str_contains($type, 'decimal')) {
+                    $rules[$field] = 'nullable|numeric';
+                }
+            }
+        }
+
+        $validated = $request->validate($rules);
+
+        Sc1::create($validated);
 
         return redirect()->back()->with('success', 'Data berhasil ditambahkan');
     }
@@ -55,7 +67,7 @@ class Sc1Controller extends Controller
     // Hapus data
     public function destroy($id)
     {
-        $row = Sc1::findOrFail($id);
+        $row = Sc1::findOrFail($id);   
         $row->delete();
 
         return redirect()->back()->with('success', 'Data berhasil dihapus');

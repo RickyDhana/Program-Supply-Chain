@@ -65,9 +65,10 @@
                 <thead class="bg-[#1e2a47]">
                     <tr>
                         <th class="px-4 py-3 font-semibold text-center tracking-wider">No</th>
-                        <th class="px-4 py-3 font-semibold text-left tracking-wider">Description of Goods</th>
-                        <th class="px-4 py-3 font-semibold text-left tracking-wider">Nopen Date</th>
-                        <th class="px-4 py-3 font-semibold text-left tracking-wider">Estimasi Date Surabaya</th>
+                        <th class="px-4 py-3 font-semibold text-center tracking-wider">Description of Goods</th>
+                        <th class="px-4 py-3 font-semibold text-center tracking-wider">Code Project</th>
+                        <th class="px-4 py-3 font-semibold text-center tracking-wider">Date Port of Loading</th>
+                        <th class="px-4 py-3 font-semibold text-center tracking-wider">Estimasi Date Surabaya</th>
                         <th class="px-4 py-3 font-semibold text-center tracking-wider">Dokumen Status</th>
 
                     </tr>
@@ -75,10 +76,11 @@
                 <tbody class="divide-y divide-[#1e2a47]">
                     @foreach($data as $row)
                     <tr class="hover:bg-[#13264a] transition-colors duration-200">
-                        <td class="px-4 py-3 whitespace-nowrap text-center">{{ $loop->iteration }}</td>
-                        <td class="px-4 py-3 whitespace-nowrap">{{ $row->DescriptionofGoods_Matrial }}</td>
-                        <td class="px-4 py-3 whitespace-nowrap">{{ \Carbon\Carbon::parse($row->Nopen_Date)->format('d M Y') }}</td>
-                        <td class="px-4 py-3 whitespace-nowrap">{{ \Carbon\Carbon::parse($row->Estimasi_DateSurabaya)->format('d M Y') }}</td>
+                        <td class="px-4 py-3 whitespace-nowrap text-center">{{ $row->No }}</td>
+                        <td class="px-4 py-3 whitespace-nowrap text-center">{{ $row->DescriptionofGoods_Matrial }}</td>
+                        <td class="px-4 py-3 whitespace-nowrap text-center">{{ $row->Code_Project }}</td>
+                        <td class="px-4 py-3 whitespace-nowrap text-center">{{ optional($row->Date_PortofLoading ? \Carbon\Carbon::parse($row->Date_PortofLoading) : null)->format('d M Y') ?? '-' }}</td>
+                        <td class="px-4 py-3 whitespace-nowrap text-center">{{ optional($row->Date_PortofLoading ? \Carbon\Carbon::parse($row->Estimasi_DateSurabaya) : null)->format('d M Y') ?? '-' }}</td>
                         <td class="px-4 py-3 whitespace-nowrap text-center">
                             @php
                             $status = strtolower($row->Dokumen_StatusDokumen);
