@@ -5,6 +5,7 @@ use App\Http\Controllers\Sc1Controller;
 use App\Http\Controllers\AuthController;
 
 Route::get('/', [Sc1Controller::class, 'index'])->name('home');
+Route::get('/sc1/export', [Sc1Controller::class, 'exportExcel'])->name('sc1.export');
 
 // login admin
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');

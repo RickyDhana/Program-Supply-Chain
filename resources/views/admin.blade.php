@@ -66,7 +66,7 @@
                 /* Kustomisasi DataTables */
                 .table-dark {
                     --bs-table-bg: var(--main-bg);
-                    --bs-table-border-color: var(--border-color);
+                    --bs-table-border-color : var(--border-color);
                 }
 
                 #sc1Table thead {
@@ -115,7 +115,7 @@
                 <div class="container-fluid d-flex justify-content-between align-items-center">
                     <div>
                         <a href="{{ url('/') }}">
-                            <img src="{{ asset('images/pal-logo.png') }}" alt="PAL Indonesia" style="height: 50px;">
+                            <img src="{{ asset('images/pal-logo.png') }}" alt="PAL Indonesia" style="height: 98px;">
                         </a>
                     </div>
                     <nav class="d-flex align-items-center gap-3">
@@ -125,21 +125,23 @@
                             @csrf
                             <button type="submit" class="btn btn-outline-light btn-sm">Logout</button>
                         </form>
-                        @else
-                        {{-- Tampilan saat user belum login --}}
-                        <a href="{{ route('home') }}" class="nav-link">Home</a>
-                        <a href="{{ route('login') }}" class="btn btn-outline-light btn-sm">Login</a>
                         @endauth
                     </nav>
                 </div>
             </header>
             <main class="container-fluid">
                 <div class="card">
-                    <div class="card-header">
-                        <h4 class="mb-3">
+                    <div class="card-header" class="card gap-100">
+                        <h4 class="flex-grow flex flex-col items-center justify-center text-center px-4 mt-28">
                             Dashboard Admin
                         </h4>
                         <div id="header-buttons" class="d-flex gap-2">
+                            <!-- Tombol Export Excel Manual -->
+                            <a href="{{ route('sc1.export') }}" class="btn btn-success">
+                                <i class="fas fa-file-excel me-2"></i> Export Excel
+                            </a>
+
+                            <!-- Tombol Tambah Data -->
                             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambah">
                                 <i class="fas fa-plus me-2"></i> Tambah Data
                             </button>
@@ -557,18 +559,6 @@
                     // Hapus 'B' (Buttons) dari konfigurasi DOM karena akan kita pindahkan secara manual
                     // 'f' adalah filter/pencarian, 't' adalah tabel, 'p' adalah paginasi
                     dom: '<"top d-flex justify-content-end"f>t<"bottom d-flex justify-content-end"p>',
-                    buttons: [{
-                        extend: 'excelHtml5',
-                        text: '<i class="fas fa-file-excel"></i> Download Excel',
-                        // Sesuaikan ukuran tombol agar konsisten dengan tombol "Tambah Data"
-                        className: 'btn btn-success',
-                        exportOptions: {
-                            columns: ':not(:last-child)',
-                            modifier: {
-                                page: 'all'
-                            }
-                        }
-                    }]
                 });
 
                 // Pindahkan container tombol yang dibuat oleh DataTables ke div custom kita
